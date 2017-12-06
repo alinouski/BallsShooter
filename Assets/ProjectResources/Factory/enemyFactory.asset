@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 333bf39bee0cc954aa3288bd7a53bbd6, type: 3}
+  m_Name: enemyFactory
+  m_EditorClassIdentifier: 
+  parent: {fileID: 0}
+  cloneObject: {fileID: 114946287922027880, guid: 3e2d6afcbccec114084f60745b16b643,
+    type: 2}

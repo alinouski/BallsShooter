@@ -1,0 +1,4 @@
+HEYZAP 			- for enabling heyzap mediation
+APPODEAL		- for enabling appodeal mediation
+APP_METRICA		- for enabling yandex analytics
+GANALYTIC		- for game analytics
