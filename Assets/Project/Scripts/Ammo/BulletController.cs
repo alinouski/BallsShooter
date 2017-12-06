@@ -84,6 +84,7 @@ public class BulletController : FactoryElement {
     public override void DestroySelf()
     {
         base.DestroySelf();
+        m_body.velocity = Vector2.zero;
         m_bounceWall = 0;
         m_bounceEnemy = 0; 
         transform.position = Vector2.zero;

@@ -10,7 +10,8 @@ public class LevelManager : MonoBehaviour {
     public Vector2 generateCircle;
     public float generateSpeed = 5;
     public GenerateType generateType = GenerateType.Custom;
-
+    public IntReference gameSteps;
+    public AnimationCurve generateChance;
 
     private void Start()
     {
@@ -68,9 +69,12 @@ public class LevelManager : MonoBehaviour {
 
     public void CreateLevelUp()
     {
-        GameObject lvl = lvlFactory.CreateObject().gameObject;
-        lvl.transform.position = RandomPos();
-        lvl.SetActive(true);
+        if (Random.Range(0,100) <= generateChance.Evaluate(gameSteps.Value))
+        {
+            GameObject lvl = lvlFactory.CreateObject().gameObject;
+            lvl.transform.position = RandomPos();
+            lvl.SetActive(true);
+        }
     }
 
     private Vector2 RandomPos()

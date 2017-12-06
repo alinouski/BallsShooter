@@ -71,7 +71,7 @@ public class Factory : ScriptableObject {
         {
             bullet = hidden[hidden.Count - 1];
             onScecne.Add(bullet);
-            hidden.RemoveAt(hidden.Count - 1);
+            hidden.Remove(bullet);
         }
         else
         {
@@ -93,8 +93,17 @@ public class Factory : ScriptableObject {
         //if (onScecne.Contains(o))
         {
             onScecne.Remove(o);
-            hidden.Add(o);
+            AddHidden(o);
             o.gameObject.SetActive(false);
+        }
+    }
+
+    public void AddObject(FactoryElement o)
+    {
+        Hidden.Remove(o);
+        if (!OnScene.Contains(o))
+        {
+            OnScene.Add(o);
         }
     }
 }

@@ -8,10 +8,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6334fdfc4da37e24d92c46dd1b75a707, type: 3}
-  m_Name: defaultEnemyStats
+  m_Script: {fileID: 11500000, guid: 60332b1ffc859e449bb0d2336a846cc9, type: 3}
+  m_Name: GameSteps
   m_EditorClassIdentifier: 
-  health: 1
-  speed: 0.82
-  moveTime: 1
-  waitTime: 3
+  m_defaultValue: 0
+  m_value: 0
+  m_constValue: 0
+  isConstant: 0
+  clearOnStart: 1

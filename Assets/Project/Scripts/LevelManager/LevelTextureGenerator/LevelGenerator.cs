@@ -26,21 +26,19 @@ public class LevelGenerator : MonoBehaviour
         }
         List<int> positions = new List<int>();
         int pos = level - currentAxis;
-        Debug.Log(pos);
         int texSizeY = (int)currentTexture.height;
-        Debug.Log(texSizeY);
-
         if (pos >= texSizeY)
         {
-            currentAxis = texSizeY;
+            currentAxis += texSizeY;
             GetNextTexture();
         }
+        pos = level - currentAxis;
 
         for (int i = 0; i < textureWidth; i++)
         {
             if (currentTexture.GetPixel(i, pos).a != 0)
             {
-                positions.Add(i - (texSizeY / 2) );
+                positions.Add(i - (textureWidth / 2) );
             } 
         }
 

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: playerStatDefault
   m_EditorClassIdentifier: 
   shootFrequency: 1
-  shootCount: 1
+  shootCount: 5
   wallBounce: 100000
   enemyBounce: 100000
   power: 1

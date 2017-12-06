@@ -5,12 +5,13 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class PlayerController : MonoBehaviour {
 
-    public PlayerLevelController levelContr;
+    public PlayerLevelController levelContr;    
     public Transform target;
     public Transform bulletParent;
     public Factory bulletFactory;
+    public BulletCollection bulletCollection;
 
-    public float smallShootDelay = 0.01f;
+    public int smallShootDelay = 3;
     public float shootSpeed = 15;
     public ShootType shootType = ShootType.User;
 
@@ -82,45 +83,37 @@ public class PlayerController : MonoBehaviour {
         levelContr.LevelUp();
         stats = levelContr.GetStats();
     }    
+    
+    private void LateUpdate()
+    {
+        WatchToTarget();        
+        EnableShoot();
+    }
 
-
-    private void Update()
+    void WatchToTarget()
     {
         Vector3 diff = target.position - transform.position;
         diff.Normalize();
 
         float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
-
-        
-        EnableShoot();
     }
 
     public void Shoot()
     {
         if (shootState)
-        {
-            DisableShoot();
-            StartCoroutine(UserShoot());
+        {            
+            StartCoroutine(UserShoot());            
         }
     }
 
     public void HideBullets()
     {
-        foreach (BulletController bullet in bulletFactory.OnScene)
+        foreach (BulletController bullet in bulletCollection.values)
         {
             Vector2 direction = (transform.position - bullet.transform.position).normalized;
             bullet.Hide(direction * shootSpeed);
-        }
-
-        foreach (BulletController bullet in bulletFactory.Hidden)
-        {
-            if (bullet.gameObject.activeSelf)
-            {
-                Vector2 direction = (transform.position - bullet.transform.position).normalized;
-                bullet.Hide(direction * shootSpeed);
-            }
-        }
+        }        
     }
 
     IEnumerator ShootAuto()
@@ -136,34 +129,44 @@ public class PlayerController : MonoBehaviour {
             body.enabled = false;
             for (int i = 0; i < stats.shootCount;i++)
             {
-                CreateBullet();
-                yield return new WaitForSeconds(smallShootDelay);
+                for (int j = 0; j < smallShootDelay; j++)
+                {
+                    yield return new WaitForFixedUpdate();
+                }
+                CreateBullet();                
             }
-            yield return new WaitForSeconds(smallShootDelay * 5);
+            for (int j = 0; j < 5; j++)
+            {
+                yield return new WaitForFixedUpdate();
+            }
             body.enabled = true;
         }
     }
 
     IEnumerator UserShoot()
     {
-        //blockRotate.Raise();
         gameObject.layer = 5;
         for (int i = 0; i < stats.shootCount; i++)
         {
-            CreateBullet();
-            yield return new WaitForSeconds(smallShootDelay);
+            for (int j = 0; j < smallShootDelay; j++)
+            {
+                yield return new WaitForFixedUpdate();
+            }
+            CreateBullet();            
         }
-        //unblockRotate.Raise();
-        yield return new WaitForSeconds(smallShootDelay * 5);
-        //body.enabled = true;        
+        for (int j = 0; j < 5; j++)
+        {
+            yield return new WaitForFixedUpdate();
+        }
         gameObject.layer = 0;
+        DisableShoot();
     }
 
     private void CreateBullet()
     {
         GameObject bullet = bulletFactory.CreateObject().gameObject;
         bullet.transform.position = transform.position;
-        bullet.SetActive(true);
+        
         BulletStats bs = ScriptableObject.CreateInstance<BulletStats>();
 
         bs.power = stats.power;
@@ -174,7 +177,8 @@ public class PlayerController : MonoBehaviour {
 
         Vector2 direction = target.position - transform.position;
         direction = direction.normalized;
-
+                
+        bullet.SetActive(true);
         bullet.GetComponent<BulletController>().Collider2d.isTrigger = false;
         bullet.GetComponent<BulletController>().AddForce(direction * shootSpeed);
     }

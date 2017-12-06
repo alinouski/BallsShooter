@@ -7,7 +7,12 @@ public abstract class FactoryElement : MonoBehaviour
 
     private void OnDisable()
     {
-        factory.OnScene.Remove(this);
+        DestroySelf();
+    }
+
+    private void OnEnable()
+    {
+        factory.AddObject(this);
     }
 
     public virtual void DestroySelf()

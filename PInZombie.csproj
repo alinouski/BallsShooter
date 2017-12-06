@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>2017.1.0f3</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -121,6 +119,7 @@
     <Compile Include="Assets\DefaultUtils\ValuesReferences\Scripts\FloatReference.cs" />
     <Compile Include="Assets\DefaultUtils\ValuesReferences\Scripts\IntReference.cs" />
     <Compile Include="Assets\DefaultUtils\ValuesReferences\Scripts\ValuesUpdater.cs" />
+    <Compile Include="Assets\LogCreator.cs" />
     <Compile Include="Assets\Project\Scripts\Ammo\BulletCollection.cs" />
     <Compile Include="Assets\Project\Scripts\Ammo\BulletController.cs" />
     <Compile Include="Assets\Project\Scripts\Ammo\BulletDisabler.cs" />
@@ -141,6 +140,8 @@
     <Compile Include="Assets\Project\Scripts\LevelManager\LevelManager.cs" />
     <Compile Include="Assets\Project\Scripts\LevelManager\LevelTextureGenerator\LevelGenerator.cs" />
     <Compile Include="Assets\Project\Scripts\Managers\ColorManager.cs" />
+    <Compile Include="Assets\Project\Scripts\Managers\Sound\Sound.cs" />
+    <Compile Include="Assets\Project\Scripts\Managers\Sound\SoundManager.cs" />
     <Compile Include="Assets\Project\Scripts\OnTriggerController.cs" />
     <Compile Include="Assets\Project\Scripts\Player\PlayerController.cs" />
     <Compile Include="Assets\Project\Scripts\Player\PlayerLevelController.cs" />

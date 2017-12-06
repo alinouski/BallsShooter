@@ -21,8 +21,7 @@ public class EnemyManager : MonoBehaviour {
     [Header("Generator settings")]
     public LevelGenerator generator;
     public float convertPosX = 1;
-
-    private int steps = 0;
+    public IntReference gameStep;
 
     private void Start()
     {
@@ -34,7 +33,7 @@ public class EnemyManager : MonoBehaviour {
     {
         levelsController.StartGame();
         destroyedEnemy.Value = 0;
-        steps = 0;
+        gameStep.Value = 0;
         if (generateType == GenerateType.Auto)
         {
             StartCoroutine(Generate());
@@ -106,7 +105,7 @@ public class EnemyManager : MonoBehaviour {
     {
         GenerateEnemys();
         StartCoroutine(MoveEnemy());
-        steps++;
+        gameStep.Value++;
     }
 
     IEnumerator MoveEnemy()
@@ -180,30 +179,31 @@ public class EnemyManager : MonoBehaviour {
 
     void CustomShapeGenerate()
     {
-        List<int> positions = generator.GetPositions(steps);
+        List<int> positions = generator.GetPositions(gameStep.Value);
+        float dlt = generator.textureWidth % 2 == 0 ? convertPosX / 2.0f : 0;
         if (generateDirection == GenerateDirection.Top)
         {            
             foreach (int x in positions)
             {
-                CreateEnemy(new Vector2(x * convertPosX + convertPosX / 2.0f, generateBox.y), Vector2.down);
+                CreateEnemy(new Vector2(x * convertPosX + dlt, generateBox.y), Vector2.down);
             }
         }
         else if (generateDirection == GenerateDirection.Bottom)
         {
             foreach (int x in positions)
             {
-                CreateEnemy(new Vector2(x * convertPosX + convertPosX / 2.0f, -generateBox.y), Vector2.up);
+                CreateEnemy(new Vector2(x * convertPosX + dlt, -generateBox.y), Vector2.up);
             }
         }
         else
         {
             foreach (int x in positions)
             {
-                CreateEnemy(new Vector2(x * convertPosX + convertPosX / 2.0f, generateBox.y), Vector2.down);
+                CreateEnemy(new Vector2(x * convertPosX + dlt, generateBox.y), Vector2.down);
             }
             foreach (int x in positions)
             {
-                CreateEnemy(new Vector2(x * convertPosX + convertPosX / 2.0f, -generateBox.y), Vector2.up);
+                CreateEnemy(new Vector2(x * convertPosX + dlt, -generateBox.y), Vector2.up);
             }
         }
     }

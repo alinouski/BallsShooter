@@ -63,7 +63,11 @@ public class InputController : MonoBehaviour {
 
     private void AllArea()
     {
-        target.position = -Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButton(0) )
+        {
+            target.position = -Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        }
+
         if (Input.GetMouseButtonUp(0))
         {
             shoot.Raise();
